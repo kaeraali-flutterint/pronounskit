@@ -1,14 +1,9 @@
 package main
 
 import (
-	"bytes"
-	"encoding/json"
-	"fmt"
 	"github.com/alicekaerast/pronounskit/lib"
 	"golang.org/x/oauth2"
-	"io"
 	"log"
-	"net/http"
 	"os"
 )
 
@@ -25,46 +20,19 @@ func main() {
 		},
 	}
 
-	client, err := lib.AuthenticateUser(conf)
+	m, err := lib.NewTokenManager(conf, "pronounkit.json")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("error getting token: %v", err)
 	}
 
-	// use client.Get / client.Post for further requests, the token will automatically be there
-	resp, err := client.Get("https://zoom.us/v2/users/me")
-	if err != nil {
-		log.Fatal(err)
-	}
-	body, err := io.ReadAll(resp.Body)
-	user := lib.User{}
-	err = json.Unmarshal(body, &user)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Current pronouns are:", user.Pronouns)
+	zoomUser := lib.GetZoomPronouns(m)
 
 	if len(os.Args) > 1 {
 		newPronouns := os.Args[1]
 		log.Println("Setting new pronouns to:", newPronouns)
 
-		user.Pronouns = newPronouns
+		zoomUser.Pronouns = newPronouns
+		lib.SetZoomPronouns(m, zoomUser)
 
-		jsonStr, err := json.Marshal(user)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		req, err := http.NewRequest("PATCH", "https://zoom.us/v2/users/me", bytes.NewBuffer(jsonStr))
-		req.Header.Set("Content-Type", "application/json")
-
-		if err != nil {
-			log.Fatal(err)
-		}
-		resp, err = client.Do(req)
-		if err != nil {
-			log.Fatal(err)
-		}
-		body, _ = io.ReadAll(resp.Body)
-		fmt.Println(string(body))
 	}
 }
