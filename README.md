@@ -15,8 +15,10 @@ This is currently very hacky, only supports Zoom, and requires you to create you
 2. Export the client and secret from the app as environment variables
    1. `export ZOOM_CLIENT="GxClwCk2Sca82GYDGVMMOw"`
    2. `export ZOOM_SECRET="iL1qPTYj7yx2IfTydI7p1cI9J892llGh"`
+3. Install the application
+   1. `make install` (assumes /usr/local/bin is in your $PATH and that you have go installed)
 
 ## Usage
 
-* Display your current pronouns: `go run main.go`
-* Set your pronouns: `go run main.go "they/them"`
+* Display your current pronouns: `pronounskit`
+* Set your pronouns: `pronounskit "they/them"`
