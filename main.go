@@ -5,6 +5,7 @@ import (
 	"golang.org/x/oauth2"
 	"log"
 	"os"
+	"path"
 )
 
 func main() {
@@ -20,7 +21,11 @@ func main() {
 		},
 	}
 
-	m, err := lib.NewTokenManager(conf, "pronounkit.json")
+	home, err := os.UserHomeDir()
+	if err != nil {
+		log.Fatal(err)
+	}
+	m, err := lib.NewTokenManager(conf, path.Join(home, ".pronounskit_zoom.json"))
 	if err != nil {
 		log.Fatalf("error getting token: %v", err)
 	}
