@@ -8,7 +8,7 @@ require (
 	github.com/nmrshll/rndm-go v0.0.0-20170430161430-8da3024e53de
 	github.com/palantir/stacktrace v0.0.0-20161112013806-78658fd2d177
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
-	golang.org/x/oauth2 v0.15.0
+	golang.org/x/oauth2 v0.16.0
 )
 
 require (
@@ -16,8 +16,8 @@ require (
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/stretchr/testify v1.8.0 // indirect
-	golang.org/x/net v0.19.0 // indirect
-	golang.org/x/sys v0.15.0 // indirect
+	golang.org/x/net v0.20.0 // indirect
+	golang.org/x/sys v0.16.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.31.0 // indirect
 )
